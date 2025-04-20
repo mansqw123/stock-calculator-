@@ -1,1 +1,44 @@
-# stock-calculator-
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>स्टॉक स्प्लिट कैलकुलेटर</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 20px auto; padding: 20px; }
+        input, button { width: 100%; padding: 10px; margin: 10px 0; }
+        button { background: #007bff; color: white; border: none; cursor: pointer; }
+        .result { background: #f0f8ff; padding: 15px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h2>स्टॉक स्प्लिट कैलकुलेटर</h2>
+    <input type="number" id="shares" placeholder="शेयरों की संख्या">
+    <input type="number" id="price" placeholder="प्रति शेयर कीमत (₹)">
+    <input type="number" id="split1" placeholder="स्प्लिट अनुपात (जैसे: 2)">
+    <input type="number" id="split2" placeholder="स्प्लिट अनुपात (जैसे: 1)">
+    <button onclick="calculate()">गणना करें</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculate() {
+            const shares = parseFloat(document.getElementById('shares').value);
+            const price = parseFloat(document.getElementById('price').value);
+            const split1 = parseFloat(document.getElementById('split1').value);
+            const split2 = parseFloat(document.getElementById('split2').value);
+
+            const newShares = shares * (split1 / split2);
+            const newPrice = price * (split2 / split1);
+            const totalBefore = shares * price;
+            const totalAfter = newShares * newPrice;
+
+            document.getElementById('result').innerHTML = `
+                <h3>रिजल्ट:</h3>
+                <p>नए शेयर: ${newShares.toFixed(2)}</p>
+                <p>नई कीमत: ₹${newPrice.toFixed(2)}</p>
+                <p>कुल निवेश (पहले): ₹${totalBefore.toFixed(2)}</p>
+                <p>कुल निवेश (बाद में): ₹${totalAfter.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
